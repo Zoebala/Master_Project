@@ -2,9 +2,11 @@
 
 namespace App\Filament\Resources\CategorieResource\Pages;
 
-use App\Filament\Resources\CategorieResource;
 use Filament\Actions;
+use Livewire\Attributes\On;
 use Filament\Resources\Pages\ListRecords;
+use App\Filament\Resources\CategorieResource;
+use App\Filament\Resources\CategorieResource\Widgets\CreateCategorieWidget;
 
 class ListCategories extends ListRecords
 {
@@ -15,5 +17,18 @@ class ListCategories extends ListRecords
         return [
             Actions\CreateAction::make(),
         ];
+    }
+
+
+    protected function getHeaderWidgets(): array
+    {
+        return [
+            CreateCategorieWidget::class,
+        ];
+    }
+
+    #[On('Categorie-created')]
+    public function refresh() {
+
     }
 }

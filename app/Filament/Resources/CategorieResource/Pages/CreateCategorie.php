@@ -10,5 +10,8 @@ class CreateCategorie extends CreateRecord
 {
     protected static string $resource = CategorieResource::class;
 
-    
+    protected function getCreatedNotificationTitle(): ? string
+    {
+        return "Enregistrement effectué avec succès!";
+    }
 }

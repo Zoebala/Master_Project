@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\Builder;
 use App\Filament\Resources\CategorieResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CategorieResource\RelationManagers;
+use App\Filament\Resources\CategorieResource\Widgets\CreateCategorieWidget;
 
 class CategorieResource extends Resource
 {
@@ -103,6 +104,12 @@ class CategorieResource extends Resource
             ]);
     }
 
+    public static function getWidgets(): array
+    {
+        return [
+            CreateCategorieWidget::class,
+        ];
+    }
     public static function getRelations(): array
     {
         return [
