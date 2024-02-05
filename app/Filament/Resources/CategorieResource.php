@@ -82,8 +82,13 @@ class CategorieResource extends Resource
             ->columns([
                 //
                 TextColumn::make("lib")
+                ->label("thème")
                 ->sortable()
                 ->searchable(),
+                TextColumn::make("parent.lib")
+                ->label("Catégorie")
+                ->sortable()
+                ->searchable()
             ])
             ->filters([
                 //
