@@ -4,10 +4,13 @@ namespace App\Filament\Resources;
 
 use Filament\Forms;
 use Filament\Tables;
+use Filament\Forms\Get;
 use Filament\Forms\Form;
 use App\Models\Categorie;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Forms\Components\TextInput;
@@ -20,6 +23,7 @@ class CategorieResource extends Resource
 {
     protected static ?string $model = Categorie::class;
 
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -29,24 +33,35 @@ class CategorieResource extends Resource
                 //
                 Section::make("Nouvel Enregistrement?")
                 ->icon("heroicon-o-plus-circle")
+                ->aside()
                 ->description("Enregisterz une catégorie ou un sous catégorie")
                 ->collapsible()
                 ->schema([
-                    TextInput::make("lib")
-                    ->label("Désignation/Thème")
-                    ->placeHolder("Ex: Mécanique")
-                    ->required(),
-                    TextInput::make("categorie_id")
-                    ->label("Categorie")
-                    ->datalist([
-                        "categorie" =>"categorie"
-                    ]),
+                    Toggle::make("SousCategorie")
+                    ->live()
+                    ->label("Sous-Catégorie ?"),
+                    Group::make([
+
+                        TextInput::make("lib")
+                        ->label("Désignation/Thème")
+                        ->placeHolder("Ex: Mécanique")
+                        ->required(),
+
+                        TextInput::make("categorie_id")
+                        ->label("Categorie")
+                        ->hidden(fn(Get $get):bool => $get("SousCategorie")==false)
+                        ->datalist([
+                                "categorie" =>"categorie"
+                        ]),
+                    ])
+
+
+
+
+
 
                 ])->columns(2),
-                Section::make("Sous catégorie ?")
-                ->schema([
 
-                ])
             ]);
 
 
