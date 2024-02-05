@@ -48,19 +48,37 @@ class CreateCategorieWidget extends Widget implements HasForms
                         {
                            return count(DB::select("SELECT * FROM Categories WHERE categorie_id IS NULL")) >0;
                         })
-                        ->label("Sous-Catégorie ?"),
+                        ->label(function(Get $get){
+                            if($get('SousCategorie')==false){
+                                return "Sous_Catégorie ?";
+                            }else{
+                                return "Catégorie ?";
+                            }
+                        }),
 
 
                     Group::make([
 
                         TextInput::make("lib")
-                        ->label("Thème")
+                        ->label(function(Get $get){
+                            if($get('SousCategorie')==false){
+                                return "Catégorie";
+                            }else{
+                                return "Sous_catégorie";
+                            }
+                        })
                         ->placeHolder("Ex: Mécanique")
-                        // ->columnSpan(2)
+                        ->columnSpan(function(Get $get){
+                            if($get("SousCategorie")==false){
+                                return 2;
+                            }else{
+                                return 1;
+                            }
+                        })
                         ->required(),
 
                         Select::make("categorie_id")
-                        ->label("Categorie")
+                        ->label("Catégorie d'appartenance")
                         ->hidden(fn(Get $get):bool => $get("SousCategorie")==false)
                         ->options(function()
                         {
@@ -68,8 +86,9 @@ class CreateCategorieWidget extends Widget implements HasForms
                             ->where('categorie_id')
                             ->pluck("lib","id");
                          })
+                         ->required(fn(Get $get):bool => $get("SousCategorie")==true)
                         ->preload(),
-                    ])->columnSpan(2),
+                    ])->columnSpan(2)->columns(2),
 
 
 
