@@ -46,7 +46,7 @@ class CreateCategorieWidget extends Widget implements HasForms
                         ->live()
                         ->visible(function():bool
                         {
-                           return count(DB::select("SELECT * FROM Categories WHERE categorie_id IS NULL")) >0;
+                           return Categorie::Where("categorie_id")->count() >0;
                         })
                         ->label(function(Get $get){
                             if($get('SousCategorie')==false){

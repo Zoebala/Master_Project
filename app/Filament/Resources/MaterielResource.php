@@ -17,7 +17,7 @@ class MaterielResource extends Resource
 {
     protected static ?string $model = Materiel::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-users';
+    protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
 
     public static function form(Form $form): Form
     {

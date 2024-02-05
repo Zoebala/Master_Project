@@ -22,6 +22,7 @@ class Categorie extends Model
     // {
     //    return $this->hasMany(Categorie::class, 'categorie_id', 'id');
     // }
+    //relation recursive
     public function parent()
     {
         return $this->belongsTo(Categorie::class, 'categorie_id');

@@ -32,47 +32,71 @@ class CategorieResource extends Resource
     public static function form(Form $form): Form
     {
       return $form
-            ->schema([
-                //
-                Section::make("Nouvel Enregistrement?")
-                ->icon("heroicon-o-plus-circle")
-                ->aside()
-                ->description("Enregisterz une catégorie ou un sous catégorie")
-                ->collapsible()
-                ->schema([
+      ->schema([
+        //
+        Section::make("Nouvel Enregistrement?")
+        ->icon("heroicon-o-plus-circle")
+        // ->aside()
+        ->description("Enregisterz une catégorie ou un sous catégorie")
+        ->collapsible()
+        ->schema([
 
-                        Toggle::make("SousCategorie")
-                        ->live()
-                        ->visible(function():bool
-                        {
-                           return count(DB::select("SELECT * FROM Categories WHERE categorie_id IS NULL")) >0;
-                        })
-                        ->label("Sous-Catégorie ?"),
-
-
-                    Group::make([
-
-                        TextInput::make("lib")
-                        ->label("Désignation/Thème")
-                        ->placeHolder("Ex: Mécanique")
-                        ->columnSpan(2)
-                        ->required(),
-
-                        Select::make("categorie_id")
-                        ->label("Categorie")
-                        ->hidden(fn(Get $get):bool => $get("SousCategorie")==false)
-                        ->relationship("parent","lib")
-                        ->preload(),
-                    ])->columnSpan(2),
+                Toggle::make("SousCategorie")
+                ->live()
+                ->visible(function():bool
+                {
+                   return Categorie::Where("categorie_id")->count() >0;
+                })
+                ->label(function(Get $get){
+                    if($get('SousCategorie')==false){
+                        return "Sous_Catégorie ?";
+                    }else{
+                        return "Catégorie ?";
+                    }
+                }),
 
 
+            Group::make([
+
+                TextInput::make("lib")
+                ->label(function(Get $get){
+                    if($get('SousCategorie')==false){
+                        return "Catégorie";
+                    }else{
+                        return "Sous_catégorie";
+                    }
+                })
+                ->placeHolder("Ex: Mécanique")
+                ->columnSpan(function(Get $get){
+                    if($get("SousCategorie")==false){
+                        return 2;
+                    }else{
+                        return 1;
+                    }
+                })
+                ->required(),
+
+                Select::make("categorie_id")
+                ->label("Catégorie d'appartenance")
+                ->hidden(fn(Get $get):bool => $get("SousCategorie")==false)
+                ->options(function()
+                {
+                    return Categorie::query()
+                    ->where('categorie_id')
+                    ->pluck("lib","id");
+                 })
+                 ->required(fn(Get $get):bool => $get("SousCategorie")==true)
+                ->preload(),
+            ])->columnSpan(2)->columns(2),
 
 
 
 
-                ])->columns(2),
 
-            ]);
+
+        ])->columns(2),
+
+    ]);
 
 
     }
