@@ -11,8 +11,10 @@ use Filament\Forms\Components\Group;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
+use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Contracts\HasForms;
 use Filament\Forms\Components\TextInput;
+use Filament\Notifications\Notification;
 use Filament\Forms\Concerns\InteractsWithForms;
 
 class CreateCategorieWidget extends Widget implements HasForms
@@ -35,7 +37,7 @@ class CreateCategorieWidget extends Widget implements HasForms
                 //
                 Section::make("Nouvel Enregistrement?")
                 ->icon("heroicon-o-plus-circle")
-                ->aside()
+                // ->aside()
                 ->description("Enregisterz une catégorie ou un sous catégorie")
                 ->collapsible()
                 ->schema([
@@ -52,15 +54,20 @@ class CreateCategorieWidget extends Widget implements HasForms
                     Group::make([
 
                         TextInput::make("lib")
-                        ->label("Désignation/Thème")
+                        ->label("Thème")
                         ->placeHolder("Ex: Mécanique")
-                        ->columnSpan(2)
+                        // ->columnSpan(2)
                         ->required(),
 
                         Select::make("categorie_id")
                         ->label("Categorie")
                         ->hidden(fn(Get $get):bool => $get("SousCategorie")==false)
-                        ->relationship("parent","lib")
+                        ->options(function()
+                        {
+                            return Categorie::query()
+                            ->where('categorie_id')
+                            ->pluck("lib","id");
+                         })
                         ->preload(),
                     ])->columnSpan(2),
 
@@ -80,7 +87,14 @@ class CreateCategorieWidget extends Widget implements HasForms
         Categorie::create($this->form->getState());
         $this->form->fill();
         $this->dispatch('Categorie-created');
+
+        Notification::make()
+            ->title('Enregistrement effectué avec succès')
+            ->success()
+             ->duration(5000)
+            ->send();
+        // $this->successNotificationTitle(__('filament-actions::create.single.notifications.created.title'));
     }
-   
+
 
 }
