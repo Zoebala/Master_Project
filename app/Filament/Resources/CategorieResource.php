@@ -9,7 +9,9 @@ use Filament\Forms\Form;
 use App\Models\Categorie;
 use Filament\Tables\Table;
 use Filament\Resources\Resource;
+use Illuminate\Support\Facades\DB;
 use Filament\Forms\Components\Group;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Toggle;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
@@ -37,23 +39,30 @@ class CategorieResource extends Resource
                 ->description("Enregisterz une catégorie ou un sous catégorie")
                 ->collapsible()
                 ->schema([
-                    Toggle::make("SousCategorie")
-                    ->live()
-                    ->label("Sous-Catégorie ?"),
+
+                        Toggle::make("SousCategorie")
+                        ->live()
+                        ->visible(function():bool
+                        {
+                           return count(DB::select("SELECT * FROM Categories WHERE categorie_id IS NULL")) >0;
+                        })
+                        ->label("Sous-Catégorie ?"),
+
+
                     Group::make([
 
                         TextInput::make("lib")
                         ->label("Désignation/Thème")
                         ->placeHolder("Ex: Mécanique")
+                        ->columnSpan(2)
                         ->required(),
 
-                        TextInput::make("categorie_id")
+                        Select::make("categorie_id")
                         ->label("Categorie")
                         ->hidden(fn(Get $get):bool => $get("SousCategorie")==false)
-                        ->datalist([
-                                "categorie" =>"categorie"
-                        ]),
-                    ])
+                        ->relationship("parent","lib")
+                        ->preload(),
+                    ])->columnSpan(2),
 
 
 
