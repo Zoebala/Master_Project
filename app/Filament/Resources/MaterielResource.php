@@ -21,6 +21,7 @@ use Filament\Forms\Components\MarkdownEditor;
 use App\Filament\Resources\MaterielResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\MaterielResource\RelationManagers;
+use App\Filament\Resources\MaterielResource\Widgets\CreateMaterielWidget;
 
 class MaterielResource extends Resource
 {
@@ -123,4 +124,11 @@ class MaterielResource extends Resource
             'edit' => Pages\EditMateriel::route('/{record}/edit'),
         ];
     }
+    public static function getWidgets(): array
+    {
+        return [
+            CreateMaterielWidget::class,
+        ];
+    }
+   
 }

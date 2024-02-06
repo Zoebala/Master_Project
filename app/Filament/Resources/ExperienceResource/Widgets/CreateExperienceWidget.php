@@ -51,7 +51,7 @@ class CreateExperienceWidget extends Widget implements HasForms
                 ->placeholder("Ex: élements de base de la cinématique"),
                 MarkdownEditor::make("description")
                 ->label("Description du sujet")
-                
+
                 ->columnSpanFull(),
             ])->columns(2),
         ])->statePath('data');
