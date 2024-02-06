@@ -18,6 +18,7 @@ use Filament\Forms\Components\MarkdownEditor;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ExperienceResource\Pages;
 use App\Filament\Resources\ExperienceResource\RelationManagers;
+use App\Filament\Resources\ExperienceResource\Widgets\CreateExperienceWidget;
 
 class ExperienceResource extends Resource
 {
@@ -46,6 +47,7 @@ class ExperienceResource extends Resource
                     ->placeholder("Ex: élements de base de la cinématique"),
                     MarkdownEditor::make("description")
                     ->label("Description du sujet")
+
                     ->columnSpanFull(),
                 ])->columns(2),
             ]);
@@ -57,9 +59,9 @@ class ExperienceResource extends Resource
             ->columns([
                 //
                 TextColumn::make("categorie.lib")
-                ->label("Sous Catégorie"),
-                TextColumn::make("sujet")->sortable(),
-                TextColumn::make("description"),
+                ->label("Sous Catégorie")->sortable()->searchable(),
+                TextColumn::make("sujet")->sortable()->searchable(),
+                TextColumn::make("description")->toggleable(),
 
             ])
             ->filters([
@@ -67,6 +69,7 @@ class ExperienceResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -88,6 +91,12 @@ class ExperienceResource extends Resource
             'index' => Pages\ListExperiences::route('/'),
             'create' => Pages\CreateExperience::route('/create'),
             'edit' => Pages\EditExperience::route('/{record}/edit'),
+        ];
+    }
+    public static function getWidgets(): array
+    {
+        return [
+            CreateExperienceWidget::class,
         ];
     }
 }
