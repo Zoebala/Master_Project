@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\ExperienceResource\Pages;
 use App\Filament\Resources\ExperienceResource\RelationManagers;
 use App\Filament\Resources\ExperienceResource\Widgets\CreateExperienceWidget;
+use App\Filament\Resources\ExperienceResource\RelationManagers\MaterielsRelationManager;
 
 class ExperienceResource extends Resource
 {
@@ -85,6 +86,7 @@ class ExperienceResource extends Resource
     {
         return [
             //
+            MaterielsRelationManager::class,
         ];
     }
 
