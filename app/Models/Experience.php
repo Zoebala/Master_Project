@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Categorie;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Experience extends Model
@@ -11,7 +12,7 @@ class Experience extends Model
     use HasFactory;
 
     protected $fillable=[
-        "lib",
+        // "lib",
         "sujet",
         "description",
         "categorie_id"

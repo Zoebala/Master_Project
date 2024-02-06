@@ -80,8 +80,7 @@ class CreateCategorieWidget extends Widget implements HasForms
                         Select::make("categorie_id")
                         ->label("Catégorie d'appartenance")
                         ->hidden(fn(Get $get):bool => $get("SousCategorie")==false)
-                        ->options(function()
-                        {
+                        ->options(function(){
                             return Categorie::query()
                             ->where('categorie_id')
                             ->pluck("lib","id");
