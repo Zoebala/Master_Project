@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Models\Categorie;
+use App\Models\Experience;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -31,5 +32,10 @@ class Categorie extends Model
     public function children()
     {
         return $this->hasMany(Categorie::class, 'categorie_id');
+    }
+
+    public function experiences():HasMany
+    {
+        return $this->hasMany(Experience::class);
     }
 }

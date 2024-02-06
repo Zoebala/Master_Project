@@ -21,6 +21,7 @@ use App\Filament\Resources\CategorieResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\CategorieResource\RelationManagers;
 use App\Filament\Resources\CategorieResource\Widgets\CreateCategorieWidget;
+use App\Filament\Resources\CategorieResource\RelationManagers\ExperiencesRelationManager;
 
 class CategorieResource extends Resource
 {
@@ -139,6 +140,7 @@ class CategorieResource extends Resource
     {
         return [
             //
+            ExperiencesRelationManager::class,
         ];
     }
 

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\ExperienceResource\Widgets;
 
+use Filament\Forms\Get;
 use Filament\Forms\Form;
 use App\Models\Categorie;
 use App\Models\Experience;
@@ -48,8 +49,10 @@ class CreateExperienceWidget extends Widget implements HasForms
                 //
                 TextInput::make("sujet")
                 ->required()
+                ->live()
                 ->placeholder("Ex: élements de base de la cinématique"),
                 MarkdownEditor::make("description")
+                ->visible(fn(Get $get):bool => filled($get("sujet")))
                 ->label("Description du sujet")
 
                 ->columnSpanFull(),
