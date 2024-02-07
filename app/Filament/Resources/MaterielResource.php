@@ -26,8 +26,16 @@ use App\Filament\Resources\MaterielResource\Widgets\CreateMaterielWidget;
 class MaterielResource extends Resource
 {
     protected static ?string $model = Materiel::class;
-
+    protected static ?string $navigationGroup ="App Management";
     protected static ?string $navigationIcon = 'heroicon-o-wrench-screwdriver';
+    public static function getNavigationBadge():string
+    {
+        return static::getModel()::count();
+    }
+    public static function getNavigationBadgecolor():string|array|null
+    {
+        return 'success';
+    }
 
     public static function form(Form $form): Form
     {
@@ -130,5 +138,5 @@ class MaterielResource extends Resource
             CreateMaterielWidget::class,
         ];
     }
-   
+
 }

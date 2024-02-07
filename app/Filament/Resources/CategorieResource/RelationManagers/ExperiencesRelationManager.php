@@ -58,7 +58,7 @@ class ExperiencesRelationManager extends RelationManager
                 TextColumn::make("categorie.lib")
                 ->label("Sous Catégorie")->sortable()->searchable(),
                 TextColumn::make("sujet")->sortable()->searchable(),
-                TextColumn::make("description")->toggleable(),
+                TextColumn::make("description")->toggleable(isToggledHiddenByDefault: true),
             ])
             ->filters([
                 //

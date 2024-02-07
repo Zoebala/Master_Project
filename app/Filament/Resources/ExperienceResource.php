@@ -13,6 +13,7 @@ use Filament\Resources\Resource;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Section;
 use Filament\Tables\Columns\TextColumn;
+use Illuminate\Database\Eloquent\Model;
 use Filament\Forms\Components\TextInput;
 use Illuminate\Database\Eloquent\Builder;
 use Filament\Forms\Components\MarkdownEditor;
@@ -27,6 +28,37 @@ class ExperienceResource extends Resource
     protected static ?string $model = Experience::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-briefcase';
+    protected static ?string $navigationGroup ="App Management";
+    protected static ?string $recordTitleAttribute ="sujet";
+    public static function getGlobalSearchResultTitle(Model $record):string
+    {
+        return $record->sujet;
+    }
+    public static function getNavigationBadge():string
+    {
+        return static::getModel()::count();
+    }
+    public static function getNavigationBadgecolor():string|array|null
+    {
+        return 'success';
+    }
+    public static function getGloballySearchableAttributes():array
+    {
+        return [
+            "sujet",
+            "categorie.lib"
+        ];
+    }
+    public static function getGlobalSearchResultDetails(Model $record):array
+    {
+        return [
+            "Sous_Categorie "=>$record->categorie->lib,
+        ];
+    }
+    public static function getGlobalSearchResultEloquentQuery(Model $record):Builder
+    {
+        return parent::getGlobalSearchEloquentQuery()->with(['categorie']);
+    }
 
     public static function form(Form $form): Form
     {
@@ -65,7 +97,7 @@ class ExperienceResource extends Resource
                 TextColumn::make("categorie.lib")
                 ->label("Sous Catégorie")->sortable()->searchable(),
                 TextColumn::make("sujet")->sortable()->searchable(),
-                TextColumn::make("description")->toggleable(),
+                TextColumn::make("description")->toggleable(isToggledHiddenByDefault: true),
 
             ])
             ->filters([
