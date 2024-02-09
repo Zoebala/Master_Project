@@ -3,12 +3,14 @@
 namespace App\Filament\Resources\ExperienceResource\RelationManagers;
 
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ImageColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Resources\RelationManagers\RelationManager;
 
 class MaterielsRelationManager extends RelationManager
 {
@@ -29,7 +31,11 @@ class MaterielsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('lib')
             ->columns([
-                Tables\Columns\TextColumn::make('lib'),
+                TextColumn::make("lib")
+                ->label("Nom du matériel")
+                ->sortable()->searchable(),
+                ImageColumn::make("image"),
+                TextColumn::make("description")->sortable()->searchable()->toggleable(),
             ])
             ->filters([
                 //
