@@ -40,7 +40,6 @@ class MaterielsRelationManager extends RelationManager
                         ->collapsible()
                         ->description("Enregistrer un nouveau matériel ici!")
                         ->schema([
-
                             TextInput::make("lib")
                             ->label("Nom du matériel")
                             ->minLength(3)
@@ -79,7 +78,7 @@ class MaterielsRelationManager extends RelationManager
         return $table
             ->recordTitleAttribute('lib')
             ->columns([
-                TextColumn::make("experience.sujet")->sortable()->searchable(),
+                // TextColumn::make("experience.sujet")->sortable()->searchable(),
                 TextColumn::make("lib")
                 ->label("Nom du matériel")
                 ->sortable()->searchable(),

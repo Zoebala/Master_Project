@@ -51,15 +51,15 @@ class CreateMaterielWidget extends Widget implements HasForms
                         ->description("Enregistrer un nouveau matériel ici!")
                         ->schema([
 
-                        Select::make("experience_id")
-                        ->label("Expérience")
-                        ->preload()
-                        ->searchable()
-                        ->required()
-                        ->options(function(){
-                            return Experience::query()->whereNot("id")
-                            ->pluck("sujet","id");
-                        }),
+                        // Select::make("experience_id")
+                        // ->label("Expérience")
+                        // ->preload()
+                        // ->searchable()
+                        // ->required()
+                        // ->options(function(){
+                        //     return Experience::query()->whereNot("id")
+                        //     ->pluck("sujet","id");
+                        // }),
                         TextInput::make("lib")
                         ->label("Nom du matériel")
                         ->minLength(3)
@@ -70,7 +70,7 @@ class CreateMaterielWidget extends Widget implements HasForms
                     Section::make("Image du matériel")
                         ->icon("heroicon-o-camera")
                         ->collapsible()
-                        ->description("Uploader l'image du matériel")
+                        // ->description("Uploader l'image du matériel")
                         ->schema([
                         FileUpload::make("image")->disk("public")->directory("images"),
 

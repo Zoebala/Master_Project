@@ -53,11 +53,11 @@ class MaterielResource extends Resource
                             ->description("Enregistrer un nouveau matériel ici!")
                             ->schema([
 
-                            Select::make("experience_id")
-                            ->label("Expérience")
-                            ->preload()
-                            ->required()
-                            ->relationship("experience","sujet"),
+                            // Select::make("experience_id")
+                            // ->label("Expérience")
+                            // ->preload()
+                            // ->required()
+                            // ->relationship("experience","sujet"),
                             TextInput::make("lib")
                             ->label("Nom du matériel")
                             ->minLength(3)
@@ -96,7 +96,7 @@ class MaterielResource extends Resource
         return $table
             ->columns([
                 //
-                TextColumn::make("experience.sujet")->sortable()->searchable(),
+                // TextColumn::make("experience.sujet")->sortable()->searchable(),
                 TextColumn::make("lib")
                 ->label("Nom du matériel")
                 ->sortable()->searchable(),
