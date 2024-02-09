@@ -18,7 +18,7 @@ class StatsAdminOverview extends BaseWidget
             ->color("success")
             ->chart([34,2,5,23])
             ->Icon("heroicon-o-rectangle-stack"),
-            Stat::make("Sous_Categories", Categorie::query()->whereNot("categorie_id")->count())
+            Stat::make("Sous_Categories ", Categorie::query()->whereNot("categorie_id")->count())
             ->description("les sous catégories associées aux catégories")
             ->color("warning")
             ->chart([34,2,5,23])
