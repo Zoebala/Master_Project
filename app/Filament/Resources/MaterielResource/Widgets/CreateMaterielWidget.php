@@ -51,15 +51,7 @@ class CreateMaterielWidget extends Widget implements HasForms
                         ->description("Enregistrer un nouveau matériel ici!")
                         ->schema([
 
-                        // Select::make("experience_id")
-                        // ->label("Expérience")
-                        // ->preload()
-                        // ->searchable()
-                        // ->required()
-                        // ->options(function(){
-                        //     return Experience::query()->whereNot("id")
-                        //     ->pluck("sujet","id");
-                        // }),
+                        
                         TextInput::make("lib")
                         ->label("Nom du matériel")
                         ->minLength(3)

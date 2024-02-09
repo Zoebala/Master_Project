@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Experience extends Model
 {
@@ -26,8 +27,8 @@ class Experience extends Model
         return $this->belongsTo(Categorie::class);
     }
 
-    public function materiels():HasMany
+    public function materiels():BelongsToMany
     {
-        return $this->hasMany(Materiel::class);
+        return $this->belongsToMany(Materiel::class,"avoirs")->withTimestamps();
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\ExperienceResource\RelationManagers;
+namespace App\Filament\Resources\MaterielResource\RelationManagers;
 
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -10,15 +10,15 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class MaterielsRelationManager extends RelationManager
+class ExperiencesRelationManager extends RelationManager
 {
-    protected static string $relationship = 'materiels';
+    protected static string $relationship = 'experiences';
 
     public function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('lib')
+                Forms\Components\TextInput::make('sujet')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -27,9 +27,9 @@ class MaterielsRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
-            ->recordTitleAttribute('lib')
+            ->recordTitleAttribute('sujet')
             ->columns([
-                Tables\Columns\TextColumn::make('lib'),
+                Tables\Columns\TextColumn::make('sujet'),
             ])
             ->filters([
                 //

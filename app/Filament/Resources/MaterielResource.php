@@ -22,6 +22,7 @@ use App\Filament\Resources\MaterielResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use App\Filament\Resources\MaterielResource\RelationManagers;
 use App\Filament\Resources\MaterielResource\Widgets\CreateMaterielWidget;
+use App\Filament\Resources\MaterielResource\RelationManagers\ExperiencesRelationManager;
 
 class MaterielResource extends Resource
 {
@@ -121,6 +122,7 @@ class MaterielResource extends Resource
     {
         return [
             //
+            ExperiencesRelationManager::class,
         ];
     }
 
