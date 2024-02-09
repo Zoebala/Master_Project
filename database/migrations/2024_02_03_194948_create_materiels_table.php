@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string("lib");
             $table->text("description")->nullable();
-            $table->unsignedBigInteger("experience_id");
+
             $table->string("image")->nullable();
             $table->timestamps();
         });
